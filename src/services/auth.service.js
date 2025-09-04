@@ -14,13 +14,15 @@ import { ExceptionMessage } from "../exceptions/ExceptionMessage.js";
 import { TIME, TOKEN_EXPIRES } from "../constants/time.constants.js";
 
 async function createUser(user) {
-  const existingEmail = await authRepository.findUserByEmail(user.email);
+  // 이메일과 닉네임 중복 확인을 병렬로 처리하여 시간 단축
+  const [existingEmail, existingNickname] = await Promise.all([
+    authRepository.findUserByEmail(user.email),
+    authRepository.findUserByNickname(user.nickname)
+  ]);
+  
   if (existingEmail) {
     throw new BadRequestError(ExceptionMessage.ALREADY_EXISTED_EMAIL);
   }
-  const existingNickname = await authRepository.findUserByNickname(
-    user.nickname
-  );
   if (existingNickname) {
     throw new BadRequestError(ExceptionMessage.ALREADY_EXISTED_NICKNAME);
   }
