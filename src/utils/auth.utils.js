@@ -10,11 +10,9 @@ function filterSensitiveUserData(user) {
 
 /**
  * 비밀번호 해싱 함수
- * 배포환경에서 연결 타임아웃을 방지하기 위해 salt rounds 조정
  */
 function hashPassword(password) {
-  const saltRounds = process.env.NODE_ENV === 'production' ? 6 : 10;
-  return bcrypt.hash(password, saltRounds);
+  return bcrypt.hash(password, 10);
 }
 
 /**

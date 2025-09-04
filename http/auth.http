@@ -19,9 +19,6 @@ Content-Type: application/json
     "email" : "gksktl111@naver.com",
     "password" : "1rhdiddl!"
 }
-###  "email" : "test99@test.com"(도마뱀), "test0@test.com"(곰), test0@test.com (고양이)
-###  "password" : "a12345678!"
-
 
 ### 관리자 로그인
 POST http://localhost:8080/auth/sign-in
